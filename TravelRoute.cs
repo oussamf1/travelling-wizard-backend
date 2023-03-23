@@ -1,6 +1,6 @@
 ﻿namespace WebApplication1
 {
-    public class Vacation
+    public class TravelRoute
     {
         private DateTime start_date;
         private DateTime end_date;

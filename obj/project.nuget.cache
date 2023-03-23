@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "FWxJn3BskEHm0WL0ays32paT+1Q/ThfwpP+C9zTPFWyHp8I947/8VLYvzUKkC01M15knXExxwQjzewHCK8KVqA==",
+  "dgSpecHash": "LLtsPg/8Bfw2qExbj76vLEsneiEjetvtUN5JERDle2YfezF2sf299Ri4t8cCQ1TASLCsIQwtdgfSeg0rhCuMvg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Oussama\\source\\repos\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Oussama\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Oussama\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Oussama\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Oussama\\.nuget\\packages\\restsharp\\109.0.1\\restsharp.109.0.1.nupkg.sha512",
     "C:\\Users\\Oussama\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Oussama\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Oussama\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

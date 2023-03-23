@@ -2,18 +2,15 @@
 {
     public class Location
     {
-        private string type;
-        private string city;
-        public string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
-        public string City
-        {
-            get { return city; }
-            set { city = value; }
-        }
+        public string City { get; }
+        public string City_code { get; }
+        public string Terminal { get; }
 
+        public Location(string city, string cityCode, string terminal)
+        {
+            City = city;
+            City_code = cityCode;
+            Terminal = terminal;
+        }
     }
 }

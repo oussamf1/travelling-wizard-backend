@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using WebApplication1.External_APIs.Kiwi;
 
-namespace WebApplication1.Controllers
+namespace WebApplication1.Controller.Kiwi_API
 {
     [ApiController]
     [Route("[controller]")]
     public class VacationController : ControllerBase
     {
         [HttpGet(Name = "GetVacation")]
-        public async Task <string> Get()
+        public async Task <List<Trip>> Get()
         {
-           return await VacationPlanner.Get_Flights();
+            Kiwi kiwi= new Kiwi();  
+
+             return await kiwi.GetTrips();
         }
     }
 }

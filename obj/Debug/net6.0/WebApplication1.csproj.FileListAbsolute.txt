@@ -30,3 +30,5 @@ C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\obj\Debug\net6.0\r
 C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\obj\Debug\net6.0\WebApplication1.pdb
 C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\obj\Debug\net6.0\WebApplication1.genruntimeconfig.cache
 C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\obj\Debug\net6.0\ref\WebApplication1.dll
+C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Oussama\source\repos\WebApplication1\WebApplication1\bin\Debug\net6.0\RestSharp.dll
