@@ -11,9 +11,13 @@ namespace WebApplication1.Controller.Kiwi_API
         [HttpGet(Name = "GetVacation")]
         public async Task <List<Trip>> Get()
         {
-            Kiwi kiwi= new Kiwi();  
+            DateTime start = new DateTime(2023, 6, 1);
+            DateTime end = new DateTime(2023, 6, 23);
+            string[] cities = new string[] { "PAR", "BUD", "TUN" };
+            VacationPlan myVacationPlan = new VacationPlan(start, end, cities);
+            VacationPlanner vacationPlanner = new VacationPlanner(myVacationPlan);
 
-             return await kiwi.GetTrips();
+            return await vacationPlanner.Combine_Trips(myVacationPlan);
         }
     }
 }

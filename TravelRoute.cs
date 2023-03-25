@@ -2,15 +2,16 @@
 {
     public class TravelRoute
     {
-        private DateTime start_date;
-        private DateTime end_date;
-        public Trip[] trips_in_order;
-        public Trip[] Trips_in_order
+        private DateTime start_date { get; }
+        private DateTime end_date { get; }
+        public List<Trip> trips_in_order { get; }
+        public TravelRoute (List<Trip> tripsIOrder, DateTime startDate, DateTime endDate)
         {
-            get { return trips_in_order; }
-            set { trips_in_order = value; }
+              start_date= startDate;
+               end_date= endDate;
+               trips_in_order= tripsIOrder;
+
         }
-        public DateTime Start_date { get { return start_date; } set { start_date = value; } }   
-        public DateTime End_date { get { return end_date; } set { end_date = value; } }
+     
     }
 }

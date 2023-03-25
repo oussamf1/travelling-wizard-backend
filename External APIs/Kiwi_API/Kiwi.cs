@@ -10,32 +10,69 @@ namespace WebApplication1.External_APIs.Kiwi
 {
     public class Kiwi : IDataSource
     {
-        public async Task<List<Trip>> GetTrips()
+        public async Task<List<Trip>> GetTrips(VacationPlan vacation_plan)//combine all trips to find best plan
         {
-            FlightstInfo flights_info = await GetFlights();
-            List <Trip> trips = await FormatData(flights_info);
-            //Trip[] trips = FormatData(flights_string_format);
-            return trips;
+            List<FlightstInfo> flights_infos = await GetFlights(vacation_plan);
+            List<Trip> all_trips = new List<Trip>();
+            foreach(var flight_info in flights_infos)
+            {
+                List<Trip> trips = await FormatData(flight_info);
+                all_trips.AddRange(trips);
+            }
+            return all_trips;
         }
-        public async Task<FlightstInfo> GetFlights()
+        public string FormatDate(DateTime date)
+        {
+            return date.ToString("dd/MM/yyyy");
+        }
+        public string GetURL(string startDate, string endDate,string origin , string destination) {
+           string apiUrl = $"https://tequila-api.kiwi.com/v2/search?fly_from={origin}&fly_to={destination}&date_from={startDate}&date_to={endDate}";
+            return apiUrl;
+        }
+        public async Task<FlightstInfo> CallSearcchApiKiwi(string apiUrl)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("apikey", "kQBxPTTxfXNHF3PzLjl5u-0F583dfPsx");
-            string origin = "JFK";
-            string destination = "LAX";
-            string startDate = "01/04/2023";
-            string endDate = "30/04/2023";
-            int numAdults = 1;
-            // string apiUrl = $"https://tequila-api.kiwi.com/v3/search?fly_from={origin}&fly_to={destination}&date_from={startDate}&date_to={endDate}&adults={numAdults}";
-            string apiUrl = "https://api.tequila.kiwi.com/v2/search?fly_from=BUD&fly_to=TUN&dateFrom=01/04/2023&dateTo=02/04/2023";
             HttpResponseMessage response = await client.GetAsync(apiUrl);
             string responseBody = await response.Content.ReadAsStringAsync();
             FlightstInfo flightsInfo = JsonConvert.DeserializeObject<FlightstInfo>(responseBody);
             return flightsInfo;
         }
-        private async Task <List<Trip>> FormatData(FlightstInfo flightsInfo)
+        public async Task<List<FlightstInfo>> GetFlights(VacationPlan vacation_plan)
         {
 
+            string[] cities_to_visit = vacation_plan.Cities_to_visit;
+            string startDate = FormatDate(vacation_plan.Vacation_start_date);
+            string endDate = FormatDate(vacation_plan.Vacation_end_date);
+            List <FlightstInfo> flightstInfos= new List<FlightstInfo>();
+
+            for (int i = 0; i < cities_to_visit.Length; i++)
+            {
+                for (int j = 0; j < cities_to_visit.Length; j++)
+                {
+                    if (i != j)
+                    {
+                        string origin = cities_to_visit[i];
+                        string destination = cities_to_visit[j];
+                        string apiUrl = GetURL(startDate, endDate, origin, destination);
+                        //string apiUrl = "https://api.tequila.kiwi.com/v2/search?fly_from=BUD&fly_to=TUN&dateFrom=01/04/2023&dateTo=02/04/2023";
+
+                        FlightstInfo flightsinfo =  await CallSearcchApiKiwi(apiUrl);
+                        flightstInfos.Add(flightsinfo);
+                       
+                    }
+                }
+            }
+            //string origin = "JFK";
+            //string destination = "LAX";
+            //string startDate = "01/04/2023";
+            //string endDate = "30/04/2023";
+            //int numAdults = 1;
+            //string apiUrl = "https://api.tequila.kiwi.com/v2/search?fly_from=BUD&fly_to=TUN&dateFrom=01/04/2023&dateTo=02/04/2023";
+            return flightstInfos;
+        }
+        private async Task <List<Trip>> FormatData(FlightstInfo flightsInfo)
+        {
             List<Trip> trips = new List<Trip>();
             foreach (Flight flight in flightsInfo.data)
             {

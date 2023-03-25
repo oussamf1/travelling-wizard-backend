@@ -2,7 +2,7 @@
 {
     public interface IDataSource
     {
-        Task<List<Trip>> GetTrips();
+        Task<List<Trip>> GetTrips(VacationPlan vacation_plan);
 
     }
 }
