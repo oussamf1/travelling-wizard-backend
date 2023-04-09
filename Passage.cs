@@ -6,8 +6,8 @@
         public Location Ending_location { get; }
         public string Carrier { get; }
         public string Passage_id { get; }
-        public DateTime Arrival_utc { get; }
-        public DateTime Departure_utc { get; }
+        public DateTime? Departure_utc { get; set; }
+        public DateTime? Arrival_utc { get; set; }
 
 
         public Passage(Location startingLocation, Location endingLocation, string carrier, DateTime arrivalUtc, DateTime departureUtc, int passage_id)

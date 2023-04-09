@@ -41,11 +41,27 @@ namespace WebApplication1.External_APIs.Kiwi
         public async Task<List<FlightstInfo>> GetFlights(VacationPlan vacation_plan)
         {
 
-            string[] cities_to_visit = vacation_plan.Cities_to_visit;
+            string[] cities_to_visit = vacation_plan.CityDaysStayed.Keys.ToArray();
             string startDate = FormatDate(vacation_plan.Vacation_start_date);
             string endDate = FormatDate(vacation_plan.Vacation_end_date);
             List <FlightstInfo> flightstInfos= new List<FlightstInfo>();
 
+            foreach (string city in cities_to_visit)
+            {
+                string origin = vacation_plan.Starting_Location.City_code;
+                string destination = city;
+                string apiUrl = GetURL(startDate, endDate, origin, destination);
+                FlightstInfo flightsinfo = await CallSearcchApiKiwi(apiUrl);
+                flightstInfos.Add(flightsinfo);
+            }
+            foreach (string city in cities_to_visit)
+            {
+                string origin = city;
+                string destination = vacation_plan.Ending_Location.City_code;
+                string apiUrl = GetURL(startDate, endDate, origin, destination);
+                FlightstInfo flightsinfo = await CallSearcchApiKiwi(apiUrl);
+                flightstInfos.Add(flightsinfo);
+            }
             for (int i = 0; i < cities_to_visit.Length; i++)
             {
                 for (int j = 0; j < cities_to_visit.Length; j++)
@@ -55,20 +71,12 @@ namespace WebApplication1.External_APIs.Kiwi
                         string origin = cities_to_visit[i];
                         string destination = cities_to_visit[j];
                         string apiUrl = GetURL(startDate, endDate, origin, destination);
-                        //string apiUrl = "https://api.tequila.kiwi.com/v2/search?fly_from=BUD&fly_to=TUN&dateFrom=01/04/2023&dateTo=02/04/2023";
-
                         FlightstInfo flightsinfo =  await CallSearcchApiKiwi(apiUrl);
-                        flightstInfos.Add(flightsinfo);
-                       
+                        flightstInfos.Add(flightsinfo);          
                     }
                 }
             }
-            //string origin = "JFK";
-            //string destination = "LAX";
-            //string startDate = "01/04/2023";
-            //string endDate = "30/04/2023";
-            //int numAdults = 1;
-            //string apiUrl = "https://api.tequila.kiwi.com/v2/search?fly_from=BUD&fly_to=TUN&dateFrom=01/04/2023&dateTo=02/04/2023";
+      
             return flightstInfos;
         }
         private async Task <List<Trip>> FormatData(FlightstInfo flightsInfo)
